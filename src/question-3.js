@@ -28,9 +28,30 @@ import assert from "assert";
 function calculate(sequence, order) {
   // TODO: Implement logic here
   // Please ensure that the assertions (line 36) is correct after implementing the logic
-
-  return [];
+  // create a for loop where the stop condition is index === order
+  for (let index = 1; index <= order; index++) {
+    // calls subrator function and passes sequence into function
+    // where sequence will be overwritten with a shortenSequence in another function
+    sequence = subtrator(sequence);
+  }
+  // when loop is complete returns sequence.first as sequence is still an array
+  return sequence;
 }
 
+// A function to subtrate the values within the array and returns the subtrated array
+const subtrator = (sequence) => {
+  let shortenSequence = [];
+  for (let index = 0; index < sequence.length - 1; index++) {
+    // takes sequence[i] - sequence[i-1] and gets the result
+    // pushs result into new array
+    shortenSequence.push(sequence[index + 1] - sequence[index]);
+  }
+  // returns the new array with shorten number sequence
+  return shortenSequence;
+};
+
 // TODO: Uncommenting the assertion should not throw any exception
-// assert.deepStrictEqual(calculate([113, 24, -52, 98, 102, -42, -23, 9, 192], 8), [1945]);
+assert.deepStrictEqual(
+  calculate([113, 24, -52, 98, 102, -42, -23, 9, 192], 8),
+  [1945]
+);

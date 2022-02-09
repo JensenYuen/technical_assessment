@@ -56,9 +56,31 @@ const output = {
 const transformData = (employees) => {
   // TODO: Implement transformation logic here
   // Please ensure that the assertions (line 64) is correct after implementing the logic
+  // create a new object to hold transformed data
+  let transformedData = {};
+  employees.forEach((employee) => {
+    // we know each employee has a dept & salary
+    let dept = employee["dept"];
+    let salary = employee["salary"];
+    // get the dept and check if the key is present in transformedData object
+    if (dept in transformedData) {
+      let maxSalary = transformedData[dept].maxSalary;
+      // if true, employeeCount += 1
+      transformedData[dept].employeeCount += 1;
+      // check if current maxSalary is larger than salary of current employee in loop
+      if (maxSalary < salary) {
+        // if true, sets current employee salary as new maxSalary
+        transformedData[dept].maxSalary = salary;
+      }
+    } else {
+      // else, creates key and value {employeeCount = 1, and set maxSalary = salary}
+      let deptDetails = { employeeCount: 1, maxSalary: salary };
+      transformedData[dept] = deptDetails;
+    }
+  });
 
-  return {};
+  return transformedData;
 };
 
 // TODO: Uncommenting the assertion should not throw any exception
-// assert.deepStrictEqual(transformData(employees), output);
+assert.deepStrictEqual(transformData(employees), output);
